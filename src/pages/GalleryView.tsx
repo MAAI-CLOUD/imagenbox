@@ -150,7 +150,7 @@ export function GalleryView() {
       <div className="absolute top-0 left-0 right-0 p-4 flex flex-wrap justify-between items-center z-10 bg-gradient-to-b from-black/70 to-transparent">
         <button
           onClick={() => navigate('/dashboard')}
-          className="text-white hover:text-gray-300 flex items-center gap-2 p-4"
+          className="text-white hover:text-gray-300 flex items-center gap-2 pb-6"
         >
           <ArrowLeft /> Back
         </button>
