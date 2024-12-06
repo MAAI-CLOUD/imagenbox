@@ -48,34 +48,35 @@ export function Dashboard() {
   return (
     <div className="min-h-screen bg-gray-100">
       <header className="bg-white shadow">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
-          <div className="flex justify-between items-center">
-            <div className="flex items-center gap-2">
-              <Images className="h-8 w-8 text-indigo-600" />
-              <h1 className="text-3xl font-bold text-gray-900">{t('nav.galleries')}</h1>
-            </div>
-            <div className="flex items-center gap-4">
-              <button
-                onClick={() => setShowCreateModal(true)}
-                className="flex items-center gap-2 bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 transition-colors"
-              >
-                <Plus size={20} />
-                {t('gallery.create')}
-              </button>
-              <button
-                onClick={logout}
-                className="flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors"
-                title="Logout"
-              >
-                <LogOut size={20} />
-                <span>{t('auth.logout')}</span>
-              </button>
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+        <div className="flex flex-wrap items-center justify-between gap-4">
+          <div className="flex items-center gap-2">
+            <Images className="h-8 w-8 text-indigo-600" />
+            <h1 className="text-2xl sm:text-3xl font-bold text-gray-900">{t('nav.galleries')}</h1>
+          </div>
+          <div className="flex flex-wrap items-center gap-4">
+            <button
+              onClick={() => setShowCreateModal(true)}
+              className="flex items-center gap-2 bg-indigo-600 text-white px-4 py-2 rounded-md hover:bg-indigo-700 transition-colors text-sm sm:text-base"
+            >
+              <Plus size={20} />
+              {t('gallery.create')}
+            </button>
+            <button
+              onClick={logout}
+              className="flex items-center gap-2 text-gray-600 hover:text-gray-900 transition-colors text-sm sm:text-base"
+              title="Logout"
+            >
+              <LogOut size={20} />
+              <span>{t('auth.logout')}</span>
+            </button>
+            <button className="flex items-center">
               <LanguageToggle />
-            </div>
+            </button>
           </div>
         </div>
+      </div>
       </header>
-
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         <div className="space-y-8">
           <GalleryGrid 

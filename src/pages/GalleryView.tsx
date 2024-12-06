@@ -147,20 +147,20 @@ export function GalleryView() {
   return (
     <div className="fixed inset-0 bg-black">
       {/* Header */}
-      <div className="absolute top-0 left-0 right-0 p-4 flex justify-between items-center z-10 bg-gradient-to-b from-black/70 to-transparent">
+      <div className="absolute top-0 left-0 right-0 p-4 flex flex-wrap justify-between items-center z-10 bg-gradient-to-b from-black/70 to-transparent">
         <button
           onClick={() => navigate('/dashboard')}
           className="text-white hover:text-gray-300 flex items-center gap-2"
         >
           <ArrowLeft /> Back
         </button>
-        <div className="flex items-center gap-4">
+        <div className="flex flex-wrap items-center gap-4">
           {isSelectionMode ? (
             <>
               <button
                 onClick={downloadSelectedPhotos}
                 disabled={selectedPhotos.size === 0 || downloading}
-                className={`flex items-center gap-2 px-4 py-2 rounded ${
+                className={`flex items-center gap-2 px-3 py-1 text-sm rounded ${
                   selectedPhotos.size === 0 || downloading
                     ? 'bg-gray-600 text-gray-400'
                     : 'bg-indigo-600 text-white hover:bg-indigo-700'
@@ -184,21 +184,21 @@ export function GalleryView() {
               <button
                 onClick={downloadAllPhotos}
                 disabled={downloading}
-                className="flex items-center gap-2 px-4 py-2 rounded bg-indigo-600 text-white hover:bg-indigo-700 disabled:bg-gray-600 disabled:text-gray-400"
+                className="flex items-center gap-2 px-3 py-1 text-sm rounded bg-indigo-600 text-white hover:bg-indigo-700 disabled:bg-gray-600 disabled:text-gray-400"
               >
                 <Download size={20} />
                 {downloading ? 'Downloading...' : 'Download All'}
               </button>
               <button
                 onClick={downloadCurrentPhoto}
-                className="flex items-center gap-2 text-white hover:text-gray-300"
+                className="flex items-center gap-2 text-sm text-white hover:text-gray-300"
               >
                 <Download size={20} />
                 Download Current
               </button>
               <button
                 onClick={() => setIsSelectionMode(true)}
-                className="text-white hover:text-gray-300"
+                className="text-sm text-white hover:text-gray-300"
               >
                 Select Multiple
               </button>
@@ -208,27 +208,27 @@ export function GalleryView() {
       </div>
 
       {/* Main Content */}
-      <div className="h-full flex items-center justify-center">
+      <div className="h-full flex flex-col items-center justify-center gap-4 px-4">
         {/* Navigation Buttons */}
         <button
           onClick={previousPhoto}
-          className="absolute left-4 text-white hover:text-gray-300 z-10"
+          className="absolute left-2 sm:left-4 text-white hover:text-gray-300 z-10"
         >
-          <ArrowLeft size={32} />
+          <ArrowLeft size={28} />
         </button>
         <button
           onClick={nextPhoto}
-          className="absolute right-4 text-white hover:text-gray-300 z-10"
+          className="absolute right-2 sm:right-4 text-white hover:text-gray-300 z-10"
         >
-          <ArrowRight size={32} />
+          <ArrowRight size={28} />
         </button>
 
         {/* Current Photo */}
-        <div className="relative">
+        <div className="relative max-w-full">
           <img
             src={`https://api.imagenbox.cl${currentPhoto.foto.url}`}
             alt={currentPhoto.foto.name}
-            className="max-h-[85vh] max-w-[85vw] object-contain"
+            className="max-h-[70vh] max-w-full sm:max-h-[85vh] object-contain"
           />
           {isSelectionMode && (
             <button
@@ -259,7 +259,7 @@ export function GalleryView() {
               <img
                 src={`https://api.imagenbox.cl${photo.foto.formats.thumbnail?.url || photo.foto.url}`}
                 alt={photo.foto.name}
-                className="h-20 w-20 object-cover rounded"
+                className="h-16 w-16 sm:h-20 sm:w-20 object-cover rounded"
               />
               {isSelectionMode && selectedPhotos.has(photo.id) && (
                 <div className="absolute inset-0 bg-indigo-600/30 flex items-center justify-center">

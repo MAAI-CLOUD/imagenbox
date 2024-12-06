@@ -39,7 +39,12 @@ export function GalleryGrid({ galleries, loading, onShare, onUpload, onDelete }:
 
   return (
     <Masonry
-      breakpointCols={breakpointColumns}
+      breakpointCols={{
+        default: 4, // 4 columnas para pantallas grandes
+        1024: 3,    // 3 columnas para pantallas medianas
+        768: 2,     // 2 columnas para tabletas
+        640: 1      // 1 columna para pantallas pequeñas
+      }}
       className="flex -ml-4 w-auto"
       columnClassName="pl-4 bg-clip-padding"
     >
@@ -56,12 +61,12 @@ export function GalleryGrid({ galleries, loading, onShare, onUpload, onDelete }:
                     <img
                       src={`https://api.imagenbox.cl${coverImage}`}
                       alt={gallery.nombreGaleria}
-                      className="w-full h-56 object-cover transform group-hover:scale-105 transition-transform duration-500"
+                      className="w-full h-56 sm:h-64 lg:h-72 object-cover transform group-hover:scale-105 transition-transform duration-500"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/30 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                   </div>
                 ) : (
-                  <div className="w-full h-56 bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center">
+                  <div className="w-full h-56 sm:h-64 lg:h-72 bg-gradient-to-br from-gray-50 to-gray-100 flex items-center justify-center">
                     <ImageIcon className="h-16 w-16 text-gray-300" />
                   </div>
                 )}
@@ -73,15 +78,15 @@ export function GalleryGrid({ galleries, loading, onShare, onUpload, onDelete }:
                 )}
               </div>
               <div className="p-5">
-                <h3 className="text-xl font-semibold mb-2 text-gray-900">
+                <h3 className="text-lg sm:text-xl font-semibold mb-2 text-gray-900">
                   {gallery.nombreGaleria}
                 </h3>
-                <p className="text-gray-600 mb-4 line-clamp-2">
+                <p className="text-sm sm:text-base text-gray-600 mb-4 line-clamp-2">
                   {gallery.descripcionGaleria}
                 </p>
 
                 <div className="flex justify-between items-center">
-                  <span className="text-sm font-medium text-gray-500 flex items-center gap-1.5">
+                  <span className="text-xs sm:text-sm font-medium text-gray-500 flex items-center gap-1.5">
                     <ImageIcon size={16} />
                     {photoCount} Fotos
                   </span>
@@ -91,17 +96,13 @@ export function GalleryGrid({ galleries, loading, onShare, onUpload, onDelete }:
                       className="flex items-center gap-1.5 text-gray-600 hover:text-gray-900 transition-colors"
                     >
                       <Upload size={16} />
-                      <span className="text-sm font-medium"></span>
                     </button>
                     <button
                       onClick={() => onShare(gallery)}
                       className="flex items-center gap-1.5 text-indigo-600 hover:text-indigo-800 transition-colors"
                     >
                       <Share2 size={16} />
-                      <span className="text-sm font-medium"></span>
                     </button>
-
-                    <div className="flex gap-3">
                     {!gallery.privado && (
                       <Link
                         to={`/gallery/${gallery.id}`}
@@ -118,7 +119,6 @@ export function GalleryGrid({ galleries, loading, onShare, onUpload, onDelete }:
                       <Trash2 size={16} />
                       <span className="text-sm font-medium">Borrar</span>
                     </button>
-                  </div>
                   </div>
                 </div>
               </div>
