@@ -70,9 +70,9 @@ export function Dashboard() {
               <LogOut size={20} />
               <span>{t('auth.logout')}</span>
             </button>
-            <button className="flex items-center">
+            {/* <button className="flex items-center">
               <LanguageToggle />
-            </button>
+            </button> */}
           </div>
         </div>
       </div>

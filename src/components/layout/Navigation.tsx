@@ -43,9 +43,9 @@ export function Navigation({ isMenuOpen, onClose, onAuthClick }: NavigationProps
             </a>
           </li>
         ))}
-        <li>
+        {/* <li>
           <LanguageToggle />
-        </li>
+        </li> */}
         {isAuthenticated ? (
           <li>
             <Link
