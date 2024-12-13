@@ -2,12 +2,14 @@ import React from 'react';
 import { ChevronDown, Camera } from 'lucide-react';
 import { Link } from 'react-router-dom';
 import { useAuth } from '../AuthContext';
+import { useLanguage } from '../../contexts/LanguageContext';
 
 interface HeroProps {
   onAuthClick: () => void;
 }
 
 export function Hero({ onAuthClick }: HeroProps) {
+  const { t } = useLanguage();
   const { isAuthenticated } = useAuth();
 
   return (
@@ -20,20 +22,20 @@ export function Hero({ onAuthClick }: HeroProps) {
         />
         <div className="absolute inset-0 bg-black/40" />
       </div>
-      
+
       <div className="relative text-center text-white px-4">
         <h1 className="text-5xl md:text-7xl font-light mb-6">Capturando Momentos</h1>
         <p className="text-xl md:text-2xl text-gray-200 max-w-2xl mx-auto mb-8">
-        Una plataforma segura para guardar y compartir tus momentos más valiosos  
+          Una plataforma segura para guardar y compartir tus momentos más valiosos
         </p>
-        
+
         {isAuthenticated ? (
           <Link
             to="/dashboard"
             className="inline-flex items-center gap-2 bg-white text-gray-900 px-8 py-3 rounded-lg hover:bg-gray-100 transition-colors"
           >
             <Camera className="h-5 w-5" />
-            Manage Galleries
+            {t('hero.manage')}
           </Link>
         ) : (
           <button
@@ -41,7 +43,7 @@ export function Hero({ onAuthClick }: HeroProps) {
             className="inline-flex items-center gap-2 bg-white text-gray-900 px-8 py-3 rounded-lg hover:bg-gray-100 transition-colors"
           >
             <Camera className="h-5 w-5" />
-            Get Started
+            {t('hero.cta')}
           </button>
         )}
       </div>

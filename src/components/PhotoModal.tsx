@@ -5,6 +5,7 @@ import { toast } from 'react-hot-toast';
 import { GalleryResponse } from '../types/gallery';
 import { PhotoResponse } from '../types/photo';
 import { uploadPhoto, fetchGalleryPhotos } from '../services/api';
+import { useLanguage } from '../contexts/LanguageContext';
 
 interface PhotoModalProps {
   gallery: GalleryResponse;
@@ -12,6 +13,7 @@ interface PhotoModalProps {
 }
 
 export function PhotoModal({ gallery, onClose }: PhotoModalProps) {
+  const { t } = useLanguage();
   const [photos, setPhotos] = useState<PhotoResponse['data']>([]);
   const [loading, setLoading] = useState(true);
   const [uploading, setUploading] = useState(false);
@@ -26,7 +28,7 @@ export function PhotoModal({ gallery, onClose }: PhotoModalProps) {
 
       setUploading(true);
       setUploadProgress(0);
-      
+
       try {
         const totalFiles = acceptedFiles.length;
         let completedFiles = 0;
@@ -39,10 +41,10 @@ export function PhotoModal({ gallery, onClose }: PhotoModalProps) {
         });
 
         await Promise.all(uploadPromises);
-        toast.success('Photos uploaded successfully!');
+        toast.success('Fotos cargadas exitosamente!');
         fetchPhotos();
       } catch (error) {
-        toast.error('Failed to upload photos');
+        toast.error('No se pudieron subir fotos');
       } finally {
         setUploading(false);
         setUploadProgress(0);
@@ -56,7 +58,7 @@ export function PhotoModal({ gallery, onClose }: PhotoModalProps) {
       const response = await fetchGalleryPhotos(gallery.id);
       setPhotos(response.data);
     } catch (error) {
-      toast.error('Failed to fetch photos');
+      toast.error('No se pudieron recuperar las fotos');
     } finally {
       setLoading(false);
     }
@@ -71,7 +73,7 @@ export function PhotoModal({ gallery, onClose }: PhotoModalProps) {
       <div className="bg-white rounded-lg p-6 max-w-4xl w-full max-h-[90vh] overflow-y-auto">
         <div className="flex justify-between items-center mb-6">
           <h2 className="text-2xl font-bold text-gray-900">
-            Photos - {gallery.nombreGaleria}
+            Fotos - {gallery.nombreGaleria}
           </h2>
           <button onClick={onClose} className="text-gray-500 hover:text-gray-700">
             <X size={24} />
@@ -80,16 +82,15 @@ export function PhotoModal({ gallery, onClose }: PhotoModalProps) {
 
         <div
           {...getRootProps()}
-          className={`border-2 border-dashed rounded-lg p-6 mb-6 text-center cursor-pointer transition-colors ${
-            isDragActive ? 'border-indigo-500 bg-indigo-50' : 'border-gray-300 hover:border-indigo-400'
-          }`}
+          className={`border-2 border-dashed rounded-lg p-6 mb-6 text-center cursor-pointer transition-colors ${isDragActive ? 'border-indigo-500 bg-indigo-50' : 'border-gray-300 hover:border-indigo-400'
+            }`}
         >
           <input {...getInputProps()} />
           <Upload className="mx-auto h-12 w-12 text-gray-400 mb-2" />
           <p className="text-gray-600">
             {isDragActive
-              ? 'Drop the files here...'
-              : 'Drag & drop photos here, or click to select'}
+              ? 'Arrastra los archivos aquí...'
+              : 'Arrastre y suelte fotos aquí, o haga clic para seleccionar'}
           </p>
           {uploading && (
             <div className="mt-4 space-y-2">
@@ -99,7 +100,7 @@ export function PhotoModal({ gallery, onClose }: PhotoModalProps) {
                   style={{ width: `${uploadProgress}%` }}
                 />
               </div>
-              <p className="text-sm text-gray-600">Uploading... {Math.round(uploadProgress)}%</p>
+              <p className="text-sm text-gray-600"> {t('message.uploading')} {Math.round(uploadProgress)}%</p>
             </div>
           )}
         </div>
@@ -111,8 +112,8 @@ export function PhotoModal({ gallery, onClose }: PhotoModalProps) {
         ) : photos.length === 0 ? (
           <div className="text-center py-12">
             <ImageIcon className="mx-auto h-12 w-12 text-gray-400" />
-            <h3 className="mt-2 text-sm font-semibold text-gray-900">No photos</h3>
-            <p className="mt-1 text-sm text-gray-500">Upload some photos to get started.</p>
+            <h3 className="mt-2 text-sm font-semibold text-gray-900">Sin Fotos</h3>
+            <p className="mt-1 text-sm text-gray-500">Sube algunas fotos para comenzar.</p>
           </div>
         ) : (
           <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
